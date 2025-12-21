@@ -4,13 +4,13 @@ function Form(){
  <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
       <h2 className="text-lg font-semibold mb-6">Attendance Form</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        {/* className */}
+        {/* Class */}
         <div>
-          <label className="block mb-2">Select className</label>
+          <label className="block mb-2">Select Class</label>
           <select className="w-full px-4 py-2 border rounded-lg">
-            <option>className 1</option>
-            <option>className 2</option>
-            <option>className 3</option>
+            <option>Class 1</option>
+            <option>Class 2</option>
+            <option>Class 3</option>
           </select>
         </div>
         {/* Date */}

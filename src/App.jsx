@@ -1,11 +1,11 @@
 import './App.css'
 import './index.css';
-import Attendencepage from './pages/attendencepage.jsx'
+import AttendancePage from './pages/attendencepage.jsx'
 
 function App() {
   return (
     <>
-      <Attendencepage/>
+      <AttendancePage/>
     </>
   )
 }
