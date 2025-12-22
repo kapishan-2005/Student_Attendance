@@ -1,8 +1,7 @@
 {
   "name": "attendence-app",
   "private": true,
-    "homepage": "https://kapishan-2005.github.io/Student_Attendance/",
-
+  "homepage": "https://kapishan-2005.github.io/Student_Attendance/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -15,7 +14,8 @@
   },
   "dependencies": {
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.11.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

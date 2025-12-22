@@ -1,5 +1,4 @@
 import StudentRow from "./studentrow.jsx";
-
 function AttendanceTable({ students }) {
   return (
     <>
@@ -19,6 +18,7 @@ function AttendanceTable({ students }) {
             ))}
           </tbody>
         </table>
+        
       </div>
     </>
   );

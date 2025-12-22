@@ -14,7 +14,6 @@ function StudentRow({ student }) {
         <input
           type="text"
           placeholder="Add remarks..."
-          defaultValue={student.remarks}
           className="w-full px-2 py-1 border rounded"
         />
       </td>
