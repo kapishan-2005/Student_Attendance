@@ -1,28 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/header";
 import AttendanceTable from "../components/attendencetable";
 import Form from "../components/attendenceform";
 
-const initialStudents = [
-  { id: 1, roll: "001", name: "Alice", status: "absent", remarks: "" },
-  { id: 2, roll: "002", name: "Bob", status: "present", remarks: "" },
-];
-
 function AttendancePage() {
-  const [students, setStudents] = useState(initialStudents);
+  // ✅ Load ONLY from localStorage
+  const [students, setStudents] = useState(() => {
+    const saved = localStorage.getItem("students");
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const [search, setSearch] = useState("");
 
-  const addAttendance = ({ studentName, date }) => {
-    const newStudent = {
-      id: Date.now(),
-      roll: String(students.length + 1).padStart(3, "0"),
-      name: studentName,
-      date,
-      status: "absent",
-      remarks: "",
-    };
+  // ✅ Save EVERY change (remarks, status, add student)
+  useEffect(() => {
+    localStorage.setItem("students", JSON.stringify(students));
+  }, [students]);
 
-    setStudents((prev) => [...prev, newStudent]);
+  const addAttendance = ({ studentName, date }) => {
+    setStudents((prev) => [
+      ...prev,
+      {
+        id: Date.now(),
+        roll: String(prev.length + 1).padStart(3, "0"),
+        name: studentName,
+        date,
+        status: "absent",
+        remarks: "",
+      },
+    ]);
   };
 
   const toggleStatus = (id) => {
@@ -54,8 +60,8 @@ function AttendancePage() {
       <Form
         search={search}
         setSearch={setSearch}
-        present={students.filter(s => s.status === "present").length}
-        absent={students.filter(s => s.status === "absent").length}
+        present={students.filter((s) => s.status === "present").length}
+        absent={students.filter((s) => s.status === "absent").length}
         total={students.length}
       />
     </div>

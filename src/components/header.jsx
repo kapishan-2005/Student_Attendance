@@ -7,7 +7,11 @@ function Header({ addAttendance }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!studentName || !date) return alert("Fill all fields");
+
+    if (!studentName || !date) {
+      alert("Please fill all fields");
+      return;
+    }
 
     addAttendance({ studentName, date });
 
