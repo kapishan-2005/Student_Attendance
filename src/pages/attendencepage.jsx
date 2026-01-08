@@ -6,76 +6,56 @@ import Form from "../components/attendenceform";
 const initialStudents = [
   { id: 1, roll: "001", name: "Alice", status: "absent", remarks: "" },
   { id: 2, roll: "002", name: "Bob", status: "present", remarks: "" },
-  { id: 3, roll: "003", name: "Charlie", status: "absent", remarks: "" },
 ];
 
 function AttendancePage() {
   const [students, setStudents] = useState(initialStudents);
   const [search, setSearch] = useState("");
 
-  // Add new student
-  const addAttendance = (name, date) => {
+  const addAttendance = ({ studentName, date }) => {
     const newStudent = {
       id: Date.now(),
-      roll: (students.length + 1).toString().padStart(3, "0"),
-      name,
+      roll: String(students.length + 1).padStart(3, "0"),
+      name: studentName,
+      date,
       status: "absent",
       remarks: "",
-      date,
     };
-    setStudents([...students, newStudent]);
+
+    setStudents((prev) => [...prev, newStudent]);
   };
 
-  // Toggle present/absent
   const toggleStatus = (id) => {
-    setStudents(
-      students.map((student) =>
-        student.id === id
-          ? {
-              ...student,
-              status: student.status === "present" ? "absent" : "present",
-            }
-          : student
+    setStudents((prev) =>
+      prev.map((s) =>
+        s.id === id
+          ? { ...s, status: s.status === "present" ? "absent" : "present" }
+          : s
       )
     );
   };
 
-  // Update remarks
-  const updateRemarks = (id, text) => {
-    setStudents(
-      students.map((student) =>
-        student.id === id ? { ...student, remarks: text } : student
-      )
+  const updateRemarks = (id, value) => {
+    setStudents((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, remarks: value } : s))
     );
   };
-
-  // Filter by search
-  const filteredStudents = students.filter((student) =>
-    student.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  // Counts
-  const presentCount = students.filter((s) => s.status === "present").length;
-  const absentCount = students.filter((s) => s.status === "absent").length;
 
   return (
-    <div className="p-4">
-      {/* Header with Add Attendance */}
+    <div className="p-6 space-y-6">
       <Header addAttendance={addAttendance} />
 
-      {/* Attendance table */}
       <AttendanceTable
-        students={filteredStudents}
+        students={students}
         toggleStatus={toggleStatus}
         updateRemarks={updateRemarks}
       />
 
-      {/* Search and counts */}
       <Form
         search={search}
         setSearch={setSearch}
-        present={presentCount}
-        absent={absentCount}
+        present={students.filter(s => s.status === "present").length}
+        absent={students.filter(s => s.status === "absent").length}
         total={students.length}
       />
     </div>
